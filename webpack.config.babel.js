@@ -1,10 +1,11 @@
+import path from 'path';
 import PluginHTML from "html-webpack-plugin";
 
 export default {
   mode: 'development',
   devServer: {
     open: true,
-    hot: true,
+    compress: true,
     watchContentBase: true
   },
   module: {
