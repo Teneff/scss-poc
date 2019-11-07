@@ -1,5 +1,6 @@
 import path from 'path';
 import PluginHTML from "html-webpack-plugin";
+import PluginMiniCssExtract from 'mini-css-extract-plugin';
 
 export default {
   mode: 'development',
@@ -13,12 +14,16 @@ export default {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
+          PluginMiniCssExtract.loader,
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader"
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          }
         ]
       },
       {
@@ -34,6 +39,12 @@ export default {
     new PluginHTML({
       template: "./src/index.html",
       filename: "./index.html"
+    }),
+    new PluginMiniCssExtract({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     })
   ]
 };
