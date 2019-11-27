@@ -16,7 +16,15 @@ export default {
         use: [
           PluginMiniCssExtract.loader,
           // Translates CSS into CommonJS
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                context: path.resolve(__dirname, 'src'),
+              },
+            }
+          },
           // Compiles Sass to CSS
           {
             loader: "sass-loader",
